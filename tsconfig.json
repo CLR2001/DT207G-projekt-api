@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "skipLibCheck": true,
+    
+    /* Output */
+    "rootDir": "./src",      // Berättar att källkoden börjar här
+    "outDir": "./dist",     // Hit kompileras koden (bra att ha även om du kör tsx)
+    "noEmit": false, 
+
+    /* Strictness */
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,         // Eftersom dina filer i src slutar på .js just nu
+    "checkJs": false         // Hindrar TS från att klaga på fel inuti JS-filerna
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "data"]
+}
