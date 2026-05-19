@@ -8,6 +8,7 @@ import pc from "picocolors";
 const app = express();
 const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
+import authenticationRoutes from './routes/authentication.routes.js';
 import dishesRoutes from './routes/dishes.js';
 
 /* ------------------------------- Middleware ------------------------------- */
@@ -21,6 +22,7 @@ app.use(cors({
 app.use(express.json());
 
 /* --------------------------------- Routes --------------------------------- */
+app.use('/authentication', authenticationRoutes);
 app.use('/dishes', dishesRoutes);
 
 /* ------------------------------- Connection ------------------------------- */
