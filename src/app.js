@@ -38,7 +38,7 @@ mongoose.connect(mongoURI)
         console.log("\n-------------------------------------------");
         console.log(`  ● Server is running on port ${port}!`);
         if (isDev) console.log(`  › ${pc.blue(pc.underline(`http://localhost:${port}/dishes`))}`)
-        else console.log(`  › ${pc.blue(pc.underline('https://api.clr-server.com/dishes'))}`);
+        else console.log(`  › ${pc.blue(pc.underline('https://projekt.api.clr-server.com/dishes'))}`);
         console.log("-------------------------------------------");
       }, 500);
     });
