@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
 import authenticationRoutes from './routes/authentication.routes.js';
-import dishesRoutes from './routes/dishes.js';
+import dishesRoutes from './routes/dishes.routes.js';
 
 /* ------------------------------- Middleware ------------------------------- */
 app.use(cors({
