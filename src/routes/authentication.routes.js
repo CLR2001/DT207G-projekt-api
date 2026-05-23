@@ -8,31 +8,6 @@ const router = express.Router();
 /* -------------------------------------------------------------------------- */
 /*                                    POST                                    */
 /* -------------------------------------------------------------------------- */
-router.post('/register', async (req, res) => {
-  try {
-    const user = await User.register(req.body.username, req.body.email, req.body.password);
-
-    res.status(200).json({
-      user: user._id,
-      message: 'Successfully registered'
-    });
-    
-  } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ 
-        error: 'Conflict', 
-        message: 'Username or Email already exists' 
-      });
-
-    } else {
-      res.status(400).json({
-        error: 'Registration failed',
-        message: error.message,
-      });
-    }
-  }
-});
-
 router.post('/login', async (req, res) => {
   try {
     const user = await User.login(req.body.username, req.body.password);

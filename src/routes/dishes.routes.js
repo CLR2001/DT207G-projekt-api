@@ -1,6 +1,9 @@
 import express from 'express';
 import Dish from '../models/dish.model..js';
+import authenticateToken from '../middleware/authenticate-token.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 /* -------------------------------------------------------------------------- */
 /*                                     GET                                    */

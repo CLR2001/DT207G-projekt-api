@@ -1,6 +1,36 @@
 import express from 'express';
 import User from '../models/user.model..js';
+import authenticateToken from '../middleware/authenticate-token.js';
 const router = express.Router();
+
+router.use(authenticateToken);
+/* -------------------------------------------------------------------------- */
+/*                                    POST                                    */
+/* -------------------------------------------------------------------------- */
+router.post('/register', async (req, res) => {
+  try {
+    const user = await User.register(req.body.username, req.body.email, req.body.password);
+
+    res.status(200).json({
+      user: user._id,
+      message: 'Successfully registered'
+    });
+    
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ 
+        error: 'Conflict', 
+        message: 'Username or Email already exists' 
+      });
+
+    } else {
+      res.status(400).json({
+        error: 'Registration failed',
+        message: error.message,
+      });
+    }
+  }
+});
 
 /* -------------------------------------------------------------------------- */
 /*                                     GET                                    */
@@ -32,33 +62,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-/* -------------------------------------------------------------------------- */
-/*                                    POST                                    */
-/* -------------------------------------------------------------------------- */
-router.post('/register', async (req, res) => {
-  try {
-    const newUser = new Dish(req.body);
-    const registeredUser = await newUser.save();
-
-    res.status(201).json({
-      message: 'User registered successfully',
-      data: registeredUser
-    });
-
-  } catch (error) {
-    if (error.name === 'ValidationError') {
-      return res.status(400).json({ 
-        error: 'Validation error',
-        message: `Inputs didn't validate correctly`,
-      });
-    }
-
-    res.status(500).json({ 
-      error: 'Internal error',
-      message: error.message 
-    });
-  }
-});
 
 /* -------------------------------------------------------------------------- */
 /*                                   DELETE                                   */
