@@ -61,6 +61,16 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/logout', (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
+  });
+
+  res.status(200).json({ message: 'Successfully logged out' });
+});
+
 /* -------------------------------------------------------------------------- */
 /*                                     GET                                    */
 /* -------------------------------------------------------------------------- */
