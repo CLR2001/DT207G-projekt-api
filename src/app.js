@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 import pc from "picocolors";
+import cookieParser from 'cookie-parser';
 
 /* ----------------------------- Initialization ----------------------------- */
 const app = express();
@@ -21,6 +22,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 /* --------------------------------- Routes --------------------------------- */
 app.use('/authentication', authenticationRoutes);
