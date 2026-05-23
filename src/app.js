@@ -16,7 +16,8 @@ app.use(cors({
   origin: [
     /https?:\/\/(.+\.)?clr-server\.com$/,
     /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/
-  ]
+  ],
+  credentials: true
 }));
 
 app.use(express.json());
@@ -37,8 +38,8 @@ mongoose.connect(mongoURI)
       setTimeout(() => {
         console.log("\n-------------------------------------------");
         console.log(`  ● Server is running on port ${port}!`);
-        if (isDev) console.log(`  › ${pc.blue(pc.underline(`http://localhost:${port}/dishes`))}`)
-        else console.log(`  › ${pc.blue(pc.underline('https://projekt.api.clr-server.com/dishes'))}`);
+        if (isDev) console.log(`  › ${pc.blue(pc.underline(`http://localhost:${port}/`))}`)
+        else console.log(`  › ${pc.blue(pc.underline('https://projekt.api.clr-server.com/'))}`);
         console.log("-------------------------------------------");
       }, 500);
     });
