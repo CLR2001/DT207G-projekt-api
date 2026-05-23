@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
 import authenticationRoutes from './routes/authentication.routes.js';
 import dishesRoutes from './routes/dishes.routes.js';
+import usersRoutes from './routes/users.routes.js';
 
 /* ------------------------------- Middleware ------------------------------- */
 app.use(cors({
@@ -28,6 +29,7 @@ app.use(cookieParser());
 /* --------------------------------- Routes --------------------------------- */
 app.use('/authentication', authenticationRoutes);
 app.use('/dishes', dishesRoutes);
+app.use('/users', usersRoutes);
 
 /* ------------------------------- Connection ------------------------------- */
 mongoose.connect(mongoURI)
