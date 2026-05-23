@@ -35,13 +35,13 @@ router.get('/:id', async (req, res) => {
 /* -------------------------------------------------------------------------- */
 /*                                    POST                                    */
 /* -------------------------------------------------------------------------- */
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const newUser = new Dish(req.body);
     const registeredUser = await newUser.save();
 
     res.status(201).json({
-      message: 'Userr registered successfully',
+      message: 'User registered successfully',
       data: registeredUser
     });
 

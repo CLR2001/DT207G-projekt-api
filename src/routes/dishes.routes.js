@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
 /* -------------------------------------------------------------------------- */
 /*                                    POST                                    */
 /* -------------------------------------------------------------------------- */
-router.post('/', async (req, res) => {
+router.post('/save', async (req, res) => {
   try {
     const newDish = new Dish(req.body);
     const savedDish = await newDish.save();
