@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../models/user.model..js';
+import User from '../models/user.model.js';
 import authenticateToken from '../middleware/authenticate-token.js';
 import { getSimplifiedDetails } from '../utils/get-simplified-data.js';
 const router = express.Router();
