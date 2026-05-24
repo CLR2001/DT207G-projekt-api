@@ -64,3 +64,5 @@ router.get('/current-week', authenticateToken, async (req, res) => {
     });
   }
 });
+
+export default router;
