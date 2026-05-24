@@ -6,6 +6,35 @@ const router = express.Router();
 router.use(authenticateToken);
 
 /* -------------------------------------------------------------------------- */
+/*                                    POST                                    */
+/* -------------------------------------------------------------------------- */
+router.post('/save', async (req, res) => {
+  try {
+    const newDish = new Dish(req.body);
+    const savedDish = await newDish.save();
+
+    res.status(201).json({
+      message: 'Dish saved successfully',
+      data: savedDish
+    });
+
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ 
+        error: 'Validation error',
+        message: `Inputs didn't validate correctly`,
+        details: error.errors 
+      });
+    }
+
+    res.status(500).json({ 
+      error: 'Internal error',
+      message: error.message 
+    });
+  }
+});
+
+/* -------------------------------------------------------------------------- */
 /*                                     GET                                    */
 /* -------------------------------------------------------------------------- */
 router.get('/', async (req, res) => {
@@ -28,35 +57,6 @@ router.get('/:id', async (req, res) => {
     res.json(dish);
 
   } catch (error) {
-    res.status(500).json({ 
-      error: 'Internal error',
-      message: error.message 
-    });
-  }
-});
-
-/* -------------------------------------------------------------------------- */
-/*                                    POST                                    */
-/* -------------------------------------------------------------------------- */
-router.post('/save', async (req, res) => {
-  try {
-    const newDish = new Dish(req.body);
-    const savedDish = await newDish.save();
-
-    res.status(201).json({
-      message: 'Dish saved successfully',
-      data: savedDish
-    });
-
-  } catch (error) {
-    if (error.name === 'ValidationError') {
-      return res.status(400).json({ 
-        error: 'Validation error',
-        message: `Inputs didn't validate correctly`,
-        details: error.errors 
-      });
-    }
-
     res.status(500).json({ 
       error: 'Internal error',
       message: error.message 
