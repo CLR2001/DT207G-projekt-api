@@ -4,10 +4,12 @@ import authenticateToken from '../middleware/authenticate-token.js';
 import { getSimplifiedDetails } from '../utils/get-simplified-data.js';
 const router = express.Router();
 
+router.use(authenticateToken);
+
 /* -------------------------------------------------------------------------- */
 /*                                     PUT                                    */
 /* -------------------------------------------------------------------------- */
-router.put('/current-week', authenticateToken, async (req, res) => {
+router.put('/current-week', async (req, res) => {
   try {
     const { week } = req.body;
 
@@ -49,7 +51,7 @@ router.put('/current-week', authenticateToken, async (req, res) => {
 /* -------------------------------------------------------------------------- */
 /*                                     GET                                    */
 /* -------------------------------------------------------------------------- */
-router.get('/current-week', authenticateToken, async (req, res) => {
+router.get('/current-week', async (req, res) => {
   try {
 
     const setting = await Setting.findOne({key: 'current_week'});

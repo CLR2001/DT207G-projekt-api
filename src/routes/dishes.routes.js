@@ -2,7 +2,27 @@ import express from 'express';
 import Dish from '../models/dish.model.js';
 import authenticateToken from '../middleware/authenticate-token.js';
 import { getSimplifiedDetails } from '../utils/get-simplified-data.js';
+import Setting from '../models/current-week.model.js';
 const router = express.Router();
+
+/* -------------------------------------------------------------------------- */
+/*                                 PUBLIC GET                                 */
+/* -------------------------------------------------------------------------- */
+router.get('/current-week', async (req, res) => {
+  try {
+    const setting = await Setting.findOne({ key: 'current_week' });
+    const currentWeek = setting ? setting.value : 1;
+
+    const dishes = await Dish.find({ week: currentWeek });
+
+    res.status(200).json(dishes);
+
+  } catch (error) {
+    res.status(500).json({ 
+      error: 'Internal error', 
+      message: error.message });
+  }
+});
 
 router.use(authenticateToken);
 
