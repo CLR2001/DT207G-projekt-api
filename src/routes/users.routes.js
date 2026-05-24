@@ -1,6 +1,7 @@
 import express from 'express';
 import User from '../models/user.model..js';
 import authenticateToken from '../middleware/authenticate-token.js';
+import { getSimplifiedDetails } from '../utils/get-simplified-data.js';
 const router = express.Router();
 
 router.use(authenticateToken);
@@ -20,13 +21,15 @@ router.post('/register', async (req, res) => {
     if (error.code === 11000) {
       return res.status(400).json({ 
         error: 'Conflict', 
-        message: 'Username or Email already exists' 
+        message: 'Username or Email already exists',
+        details: getSimplifiedDetails(error)
       });
 
     } else {
       res.status(400).json({
         error: 'Registration failed',
         message: error.message,
+        details: getSimplifiedDetails(error)
       });
     }
   }

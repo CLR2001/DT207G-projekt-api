@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import authenticateToken from '../middleware/authenticate-token.js';
+import { getSimplifiedDetails } from '../utils/get-simplified-data.js';
 const router = express.Router();
 
 /* -------------------------------------------------------------------------- */
@@ -32,6 +33,7 @@ router.post('/login', async (req, res) => {
     res.status(400).json({
       error: 'Login failed',
       message: error.message,
+      details: getSimplifiedDetails(error)
     });
   }
 });

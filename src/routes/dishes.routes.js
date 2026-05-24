@@ -1,6 +1,7 @@
 import express from 'express';
 import Dish from '../models/dish.model..js';
 import authenticateToken from '../middleware/authenticate-token.js';
+import { getSimplifiedDetails } from '../utils/get-simplified-data.js';
 const router = express.Router();
 
 router.use(authenticateToken);
@@ -23,7 +24,7 @@ router.post('/save', async (req, res) => {
       return res.status(400).json({ 
         error: 'Validation error',
         message: `Inputs didn't validate correctly`,
-        details: error.errors 
+        details: getSimplifiedDetails(error)
       });
     }
 
@@ -92,7 +93,7 @@ router.put('/:id', async (req, res) => {
       return res.status(400).json({ 
         error: 'Validation error',
         message: `Inputs didn't validate correctly`,
-        details: error.errors 
+        details: getSimplifiedDetails(error)
       });
     }
 
