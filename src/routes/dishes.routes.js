@@ -13,7 +13,12 @@ router.get('/current-week', async (req, res) => {
     const setting = await Setting.findOne({ key: 'current_week' });
     const currentWeek = setting ? setting.value : 1;
 
-    const dishes = await Dish.find({ week: currentWeek });
+    const dishes = await Dish.find({
+      $or: [
+        { week: currentWeek },
+        { week: { $size: 0 } }
+      ]
+    });
 
     res.status(200).json(dishes);
 

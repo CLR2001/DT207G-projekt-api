@@ -18,9 +18,13 @@ const dishSchema = new mongoose.Schema({
     required: true 
   },
   week: { 
-    type: Number,
-    min: [1, 'Week can not be less than 1'],
-    max: [52, 'Week can not exceed 52'],
+    type: [Number],
+    validate: {
+      validator: function(value) {
+        return value.every(week => week <= 1 && week >= 52);
+      },
+      message: 'Varje vecka måste vara mellan 1 och 52'
+    },
     required: true
   },
   category: { 
