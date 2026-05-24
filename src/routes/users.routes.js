@@ -14,14 +14,14 @@ router.post('/register', async (req, res) => {
 
     res.status(200).json({
       user: user._id,
-      message: 'Successfully registered'
+      message: 'Registreringen lyckades'
     });
     
   } catch (error) {
     if (error.code === 11000) {
       return res.status(400).json({ 
         error: 'Conflict', 
-        message: 'Username or Email already exists',
+        message: 'Användarnamn eller epost används redan',
         details: getSimplifiedDetails(error)
       });
 
@@ -51,7 +51,7 @@ router.get('/:id', async (req, res) => {
     if (!user) {
       return res.status(404).json({
         error: 'Not found',
-        message: `ID not found`
+        message: `Hittade inte ID:t`
       });
     }
 
@@ -77,12 +77,12 @@ router.delete('/:id', async (req, res) => {
     if (!deletedUser) {
       return res.status(404).json({
         error: 'Not found',
-        message: `ID not found`
+        message: `Hittade inte ID:t`
       });
     }
 
     res.json({
-      message: 'User deleted successfully',
+      message: 'Användare borttagen',
       data: deletedUser
     });
 

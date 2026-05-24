@@ -12,6 +12,7 @@ const mongoURI = process.env.MONGO_URI;
 import authenticationRoutes from './routes/authentication.routes.js';
 import dishesRoutes from './routes/dishes.routes.js';
 import usersRoutes from './routes/users.routes.js';
+import weekRoutes from './routes/current-week.routes.js'
 
 /* ------------------------------- Middleware ------------------------------- */
 app.use(cors({
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use('/authentication', authenticationRoutes);
 app.use('/dishes', dishesRoutes);
 app.use('/users', usersRoutes);
+app.use('/settings', weekRoutes);
 
 /* ------------------------------- Connection ------------------------------- */
 mongoose.connect(mongoURI)

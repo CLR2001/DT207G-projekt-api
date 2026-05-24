@@ -23,7 +23,7 @@ router.post('/save', async (req, res) => {
     if (error.name === 'ValidationError') {
       return res.status(400).json({ 
         error: 'Validation error',
-        message: `Inputs didn't validate correctly`,
+        message: `Inmatningarna validerades inte korrekt`,
         details: getSimplifiedDetails(error)
       });
     }
@@ -51,7 +51,7 @@ router.get('/:id', async (req, res) => {
     if (!dish) {
       return res.status(404).json({
         error: 'Not found',
-        message: `ID not found`
+        message: `Hittade inte ID:t`
       });
     }
 
@@ -79,12 +79,12 @@ router.put('/:id', async (req, res) => {
     if (!updatedDish) {
       return res.status(404).json({
         error: 'Not found',
-        message: `ID not found`
+        message: `Hittade inte ID:t`
       });
     }
 
     res.json({
-      message: 'Dish updated successfully',
+      message: 'Rätten har uppdaterats',
       data: updatedDish
     });
 
@@ -92,7 +92,7 @@ router.put('/:id', async (req, res) => {
     if (error.name === 'ValidationError') {
       return res.status(400).json({ 
         error: 'Validation error',
-        message: `Inputs didn't validate correctly`,
+        message: `Inmatningarna validerades inte korrekt`,
         details: getSimplifiedDetails(error)
       });
     }
@@ -115,12 +115,12 @@ router.delete('/:id', async (req, res) => {
     if (!deletedDish) {
       return res.status(404).json({
         error: 'Not found',
-        message: `ID not found`
+        message: `Hittade inte ID:t`
       });
     }
 
     res.json({
-      message: 'Dish deleted successfully',
+      message: 'Rätten borttagen',
       data: deletedDish
     });
 
