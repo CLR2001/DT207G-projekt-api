@@ -21,7 +21,11 @@ const dishSchema = new mongoose.Schema({
     type: [Number],
     validate: {
       validator: function(value) {
-        return value.every(week => week <= 1 && week >= 52);
+        if (Array.isArray(value)) {
+          return value.every(week => week >= 1 && week <= 52);
+        }
+
+        return false
       },
       message: 'Varje vecka måste vara mellan 1 och 52'
     },
