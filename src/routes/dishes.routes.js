@@ -46,10 +46,18 @@ router.post('/save', async (req, res) => {
 
   } catch (error) {
     if (error.name === 'ValidationError') {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Validation error',
         message: `Inmatningarna validerades inte korrekt`,
         details: getSimplifiedDetails(error)
+      });
+    }
+
+    if (error.code === 11000) {
+      return res.status(400).json({ 
+        error: 'Duplicate error', 
+        message: 'En maträtt med det här namnet finns redan registrerad.',
+        details: error.keyValue
       });
     }
 

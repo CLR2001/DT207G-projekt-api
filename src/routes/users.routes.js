@@ -18,20 +18,26 @@ router.post('/register', async (req, res) => {
     });
     
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ 
-        error: 'Conflict', 
-        message: 'Användarnamn eller epost används redan',
-        details: getSimplifiedDetails(error)
-      });
-
-    } else {
-      res.status(400).json({
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
         error: 'Registration failed',
-        message: error.message,
+        message: `Inmatningarna validerades inte korrekt`,
         details: getSimplifiedDetails(error)
       });
     }
+
+    if (error.code === 11000) {
+      return res.status(400).json({ 
+        error: 'Duplicate error', 
+        message: 'Användarnamn eller epost används redan',
+        details: error.keyValue
+      });
+    }
+
+    res.status(500).json({ 
+      error: 'Internal error',
+      message: error.message 
+    });
   }
 });
 
