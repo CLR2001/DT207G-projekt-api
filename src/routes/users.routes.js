@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
     if (error.code === 11000) {
       return res.status(400).json({ 
         error: 'Duplicate error', 
-        message: 'Användarnamn eller epost används redan',
+        message: 'Användarnamn eller e-post används redan',
         details: error.keyValue
       });
     }
@@ -61,7 +61,7 @@ router.get('/:id', async (req, res) => {
       });
     }
 
-    res.json(dish);
+    res.json(user);
 
   } catch (error) {
     res.status(500).json({ 
@@ -78,7 +78,14 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => { 
   try {
     const  { id } = req.params;
-    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (id.trim() === '6a0dd36e6a9ad42c8c29214f') {
+      return res.status(403).json({ 
+        error: 'Unauthorized',
+        message: `Huvud Admin kan inte raderas` 
+      });
+    } 
+    const deletedUser = await User.findByIdAndDelete(id.trim());
     
     if (!deletedUser) {
       return res.status(404).json({
