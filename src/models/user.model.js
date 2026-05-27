@@ -40,7 +40,7 @@ userSchema.statics.register = async function(username, email, password) {
 };
 
 userSchema.statics.login = async function(username, password) {
-  const user = await this.findOne({ $or: [{ username }, { email: username }] });
+  const user = await this.findOne({ $or: [{ username }, { email: username }] }).select('+password');
 
   if(!user) throw new Error("Incorrect username or password");
 
